@@ -19,7 +19,12 @@ export class NinjaController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.ninjaService.findOne(id);
+    return this.ninjaService.findOneNinja(id);
+  }
+
+  @Get('/stat/:id')
+  findOneNinjaStat(@Param('id') id: string) {
+    return this.ninjaService.findOneNinjaStat(id);
   }
 
   @Patch(':id')

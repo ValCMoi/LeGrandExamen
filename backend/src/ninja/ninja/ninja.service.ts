@@ -22,7 +22,12 @@ export class NinjaService {
     return `This action returns all ninja`;
   }
 
-  async findOne(id: string):Promise<Stat[] | undefined> {
+  async findOneNinja(id: string):Promise<Object> {
+    const aNinja:Ninja = await (this.repoNinja.findOne({where:{id:id}}))
+    return aNinja;
+  }
+
+  async findOneNinjaStat(id: string):Promise<Stat[] | undefined> {
     const aNinja:Ninja = await (this.repoNinja.findOne({where:{id:id}}))
     return aNinja.getStats();
   }
