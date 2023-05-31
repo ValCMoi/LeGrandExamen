@@ -8,6 +8,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { NinjaModule } from './ninja/ninja/ninja.module';
+import { ItemModule } from './item/item.module';
 
 const dotenv = require('dotenv');
 dotenv.config()
@@ -32,6 +33,7 @@ console.table(configConnectionDB)
     UserModule,
     AuthModule,
     NinjaModule,
+    ItemModule,   
     ],
   controllers: [AppController],
   providers: [AppService],

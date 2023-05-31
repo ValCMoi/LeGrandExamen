@@ -1,10 +1,11 @@
 import { element as elementEnum } from "src/enum/element/element.enum";
 import { StatName } from "src/enum/statName/statName.enum";
+import { Statable } from "src/interface/statable";
 import { Stat } from "src/type/stat.type";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Ninja {
+export class Ninja implements Statable{
 
     @PrimaryGeneratedColumn('uuid')
     id:string
@@ -80,6 +81,10 @@ export class Ninja {
         return {nom:StatName.CHAKRA, valeur:Math.max(...listValeur) + Math.min(...listValeur) + this.getTerre().valeur}
     }
 
+    getTailleInventaire():Stat{
+        return {nom:StatName.TAILLE_INVENTAIRE, valeur:4}
+    }
+
     getStats():Stat[]{
         let res:Stat[] = []
 
@@ -94,6 +99,10 @@ export class Ninja {
             const aStat:Stat = (this[methodName as keyof Ninja] as () => Stat) ();
             res.push(aStat)
         }
+
+        /**
+         * Calcul bonus
+         */
 
         return res
     }

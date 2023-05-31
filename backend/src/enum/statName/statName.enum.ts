@@ -5,5 +5,6 @@ export enum StatName{
     AGILITE="agilite",
     RESISTANCE="resistance",
     VIE="vie",
-    CHAKRA="chakra"
+    CHAKRA="chakra",
+    TAILLE_INVENTAIRE="tailleInventaire"
 }
