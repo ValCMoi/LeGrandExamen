@@ -7,6 +7,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { NinjaModule } from './ninja/ninja/ninja.module';
 
 const dotenv = require('dotenv');
 dotenv.config()
@@ -30,6 +31,7 @@ console.table(configConnectionDB)
     TypeOrmModule.forRoot(configConnectionDB),
     UserModule,
     AuthModule,
+    NinjaModule,
     ],
   controllers: [AppController],
   providers: [AppService],
