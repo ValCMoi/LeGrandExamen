@@ -1,11 +1,23 @@
+import { Inject, forwardRef } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Observable, from } from "rxjs";
 import { element as elementEnum } from "src/enum/element/element.enum";
 import { StatName } from "src/enum/statName/statName.enum";
 import { Statable } from "src/interface/statable";
+import { Item } from "src/item/entities/item.entity";
+import { ItemService } from "src/item/item.service";
 import { Stat } from "src/type/stat.type";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, Repository } from "typeorm";
 
 @Entity()
-export class Ninja implements Statable{
+export class Ninja{
+
+    constructor(
+        @InjectRepository(Item)
+        private readonly itemRepo: Repository<Item>,
+        @InjectRepository(Ninja)
+        private readonly ninjaRepo: Repository<Ninja>
+    ){}
 
     @PrimaryGeneratedColumn('uuid')
     id:string
@@ -38,6 +50,9 @@ export class Ninja implements Statable{
         }
     )
     elemSpe:string
+
+    @OneToMany(() => Item, item => item.ninja)
+    inventaire: Item[];
 
     enumKeys<O extends object, K extends keyof O = keyof O>(obj: O): K[] {
         return Object.keys(obj).filter(k => Number.isNaN(+k)) as K[];
@@ -100,6 +115,7 @@ export class Ninja implements Statable{
     }
 
     getStats():Stat[]{
+
         let res:Stat[] = []
 
         for(const statElem of this.enumKeys(elementEnum)){

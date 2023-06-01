@@ -1,6 +1,7 @@
 import { element } from "src/enum/element/element.enum";
 import { StatName } from "src/enum/statName/statName.enum";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Item } from "src/item/entities/item.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Stat {
@@ -20,4 +21,7 @@ export class Stat {
 
     @Column({default:1, nullable:false})
     valeur:number
+
+    @ManyToOne(() => Item, item => item.stats)
+    item: Item;
 }

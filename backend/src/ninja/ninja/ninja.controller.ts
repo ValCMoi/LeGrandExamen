@@ -27,6 +27,11 @@ export class NinjaController {
     return this.ninjaService.findOneNinjaStat(id);
   }
 
+  @Get('/fullstat/:id')
+  findOneNinjaFullStat(@Param('id') id: string) {
+    return this.ninjaService.findOneNinjaFullStat(id);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateNinjaDto: UpdateNinjaDto) {
     return this.ninjaService.update(+id, updateNinjaDto);
