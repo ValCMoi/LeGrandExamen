@@ -10,20 +10,34 @@ export class Ninja implements Statable{
     @PrimaryGeneratedColumn('uuid')
     id:string
 
-    @Column({default:0})
+    @Column({default:"Ninja"})
+    nom:string
+
+    @Column({default:"Description"})
+    description:string
+
+    @Column({default:1})
     eau:number
 
-    @Column({default:0})
+    @Column({default:1})
     feu:number
 
-    @Column({default:0})
+    @Column({default:1})
     bois:number
 
-    @Column({default:0})
+    @Column({default:1})
     metal:number
 
-    @Column({default:0})
+    @Column({default:1})
     terre:number
+
+    @Column({
+            type:"enum",
+            enum:elementEnum,
+            default:elementEnum.EAU 
+        }
+    )
+    elemSpe:string
 
     enumKeys<O extends object, K extends keyof O = keyof O>(obj: O): K[] {
         return Object.keys(obj).filter(k => Number.isNaN(+k)) as K[];
@@ -67,8 +81,8 @@ export class Ninja implements Statable{
         return {nom:StatName.AGILITE , valeur:Math.abs(this.bois - this.metal)}
     }
 
-    getVie():Stat{
-        return {nom:StatName.VIE, valeur:Math.abs(this.eau - this.bois) + this.terre}
+    getVie():Stat{ 
+        return {nom:StatName.VIE, valeur:10 * Math.abs(this.eau - this.bois) + this.terre + 10 * this[`get${this.elemSpe.slice(0,1).toUpperCase() + this.elemSpe.slice(1)}`]().valeur}
     }
 
     getResistance():Stat{

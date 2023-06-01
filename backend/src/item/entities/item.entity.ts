@@ -1,1 +1,3 @@
-export class Item {}
+export abstract class Item {
+
+}

@@ -18,8 +18,8 @@ export class NinjaService {
     return from(this.repoNinja.save(createNinjaDto));
   }
 
-  findAll() {
-    return `This action returns all ninja`;
+  findAll():Observable<Ninja[]> | undefined {
+    return from((this.repoNinja.find()));
   }
 
   async findOneNinja(id: string):Promise<Object> {
