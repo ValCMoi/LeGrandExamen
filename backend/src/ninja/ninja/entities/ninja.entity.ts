@@ -136,4 +136,64 @@ export class Ninja{
 
         return res
     }
+
+    getCapacitesStat(statName: string, valeur:number = 0):{description:string,}{
+        let res = ""
+
+        switch (statName) {
+            case StatName.AGILITE:
+                if(valeur >= 2 && valeur <= 1 ){
+                    res = "esquive réduite"
+                }
+                if(valeur === 3 ){
+                    res = "+1dé6 au joueur pour le calcul des esquives"
+                }
+                if(valeur >= 4 ){
+                    res = "contre attaque possible"
+                }
+                break;
+            case StatName.CHAKRA:
+                res=""
+                break;
+            case StatName.DEXTERITE:
+                if(valeur >= 2 && valeur <= 1 ){
+                    res = " 1 arme dans les mains"
+                }
+                if(valeur === 3 ){
+                    res = "2 armes dans les mains"
+                }
+                if(valeur >= 4 ){
+                    res = "3 armes 2 dans les mains + 1 en bouche"
+                }
+                break;        
+            case StatName.MENTAL:
+                if(valeur === 5 ){
+                    res = " +1 score final d'une tentative"
+                }
+                if(valeur > 5 && valeur <= 7 ){
+                    res = " +2 score final d'une tentative"
+                }
+                if(valeur >= 8 ){
+                    res = " +2 score final d'une tentative + ajout d'une relance d'un dé possible"
+                }
+                break;
+            case StatName.PHYSIQUE:
+                if(valeur === 5 ){
+                    res = " +1 dégât"
+                }
+                if(valeur > 5 && valeur <= 7 ){
+                    res = " +2 dégât"
+                }
+                if(valeur >= 8 ){
+                    res = " +3 dégât"
+                }
+                break;
+            case StatName.RESISTANCE:
+                res = `-${valeur} aux dégâts subit`
+                break;
+            }
+            
+
+        return {description:res}
+    }
 }

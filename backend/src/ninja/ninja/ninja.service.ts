@@ -103,7 +103,21 @@ export class NinjaService {
       })
     }
     const resStat = res
-    return {global:{nom:aNinja.nom, description:aNinja.description, elemSpe:aNinja.elemSpe},stats:resStat, inventaire:await this.itemService.getItemsOfNinja(aNinja.id)}
+
+    let resCapaciteStat = []
+
+    resStat.forEach(stat => {
+      if(aNinja.getCapacitesStat(stat.nom, stat.valeur).description !== ""){
+        resCapaciteStat.push({nom:`Capacite ${stat.nom} :  ${aNinja.getCapacitesStat(stat.nom, stat.valeur).description}`})
+      }
+    })
+
+    return {
+              global:{nom:aNinja.nom, description:aNinja.description, elemSpe:aNinja.elemSpe},
+              stats:resStat,
+              capacitesStat:resCapaciteStat,
+              inventaire:await this.itemService.getItemsOfNinja(aNinja.id)
+            }
   }
 
 

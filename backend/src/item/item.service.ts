@@ -19,7 +19,7 @@ export class ItemService {
   ){}
 
   create(createItemDto: CreateItemDto) {
-    return 'This action adds a new item';
+    return this.repoItem.save(createItemDto);
   }
 
   findAll() {
@@ -28,16 +28,20 @@ export class ItemService {
     }));
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} item`;
+  findOne(id: string) {
+    return from(this.repoItem.findOne({
+      where:{id:id},
+      relations: ['ninja', 'stats']
+    }));  }
+
+  update(id: string, updateItemDto: UpdateItemDto) {  
+    return this.repoItem.update(id,updateItemDto);
   }
 
-  update(id: number, updateItemDto: UpdateItemDto) {
-    return `This action updates a #${id} item`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} item`;
+  async remove(id: string) {
+    const entityToDelete: Item = await this.findOne(id).toPromise()
+    this.repoItem.remove(entityToDelete)
+    return 'Delete successfull';
   }
 
   async getItemsOfNinja(uuid:string):Promise<Item[] | undefined>{
